@@ -1,15 +1,17 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UsePipes, ValidationPipe } from '@nestjs/common';
-import { get } from 'http';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Query, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Task } from './task.entity';
 import { TasksService } from './tasks.service';
-import { title } from 'process';
-import { CreateTaskDto } from './dto/create-task.dto';
-import { GetTasksFilterDto } from './dto/getTasksFilter.dto';
-import { TasksStatusValidatorPipe } from 'src/pipes/task-status-validator.pipe';
 
 @Controller('tasks')
 export class TasksController {
     constructor(private tasksService : TasksService){}
     
+    
+    @Get('/:id')
+    getTaskById(@Param('id', ParseIntPipe) id: number): Promise<Task> {
+        return this.tasksService.gettaskById(id);
+    }
+
     // @Get()
     // getAllTasks(@Query() filterDto : GetTasksFilterDto) : Task[]{
     //     if (Object.keys(filterDto).length)

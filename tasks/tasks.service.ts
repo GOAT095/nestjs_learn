@@ -33,13 +33,13 @@ constructor(
     //     return tasks;
     // }
 
-    // async gettaskById(id: number): Promise<Task> {
-    //     const found = await this.taskRepository.findOne(id);
-    //     if (!found) {
-    //         throw new NotFoundException(`Task with id ${id} not found`);
-    //     }
-    //     return found;
-    // }
+    async gettaskById(id: number): Promise<Task> {
+        const found = await this.taskRepository.findOne(id);
+        if (!found) {
+            throw new NotFoundException(`Task with id ${id} not found`);
+        }
+        return found;
+    }
     // getTaskById(id : string) : Task {   
     //     const found = this.tasks.find(task => task.id === id);
     //     if (!found)
