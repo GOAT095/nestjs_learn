@@ -8,9 +8,9 @@ export class TasksController {
     constructor(private tasksService : TasksService){}
     
     
-    @Get('/:id')
+    @Get(':id')
     getTaskById(@Param('id', ParseIntPipe) id: number): Promise<Task> {
-        return this.tasksService.gettaskById(id);
+        return this.tasksService.getTaskById(id);
     }
 
     // @Get()
