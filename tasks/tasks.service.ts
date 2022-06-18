@@ -62,7 +62,8 @@ constructor(
         // const task = await this.taskRepository.findOne(id);
         const res = await this.taskRepository.delete(id);
         return (res.affected === 1);
-        }
+        
+      }
     
     // getTaskById(id : string) : Task {   
     //     const found = this.tasks.find(task => task.id === id);
