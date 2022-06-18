@@ -47,7 +47,6 @@ export class TasksController {
     @Param('id', ParseIntPipe) id : number,
     @Body('status', TasksStatusValidatorPipe) status : TasksStatus) : Promise<Task> {
         return this.tasksService.updateTaskStatus(id, status);
-        
     }
     @Get()
     getTasks(
