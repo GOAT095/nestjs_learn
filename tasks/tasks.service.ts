@@ -4,13 +4,19 @@ import { CreateTaskDto } from './dto/create-task.dto';
 import { Task } from './task.entity';
 import { TaskRepository } from './task.repository';
 import { TasksStatus } from './task-status.enum';
+import { Connection } from 'typeorm';
 @Injectable()
 export class TasksService {
+    private   taskRepository: TaskRepository;
+
     
 constructor(
-    @InjectRepository(TaskRepository)
-    private taskRepository: TaskRepository,
-){}
+    // @InjectRepository(TaskRepository)
+    // private taskRepository: TaskRepository,
+    private readonly connection: Connection
+) {
+    this.taskRepository = connection.getCustomRepository(TaskRepository);
+}
     // private tasks : Task[] = [];
     
     // getAllTasks() : Task[] {
