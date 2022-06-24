@@ -32,6 +32,18 @@ async singUp(autcredentialsDto : AuthCredentialsDto) : Promise<void>
     //above is better than making 2 request to the database !
     return ;
 }
+
+async validateUserPassword(authcredentialsDto: AuthCredentialsDto): Promise<string>{
+    const {username, password} = authcredentialsDto;
+    const user = await this.findOne({username});
+    // console.log(username);
+    if(user && await user.validatePassword(password))
+    {
+        return user.username;
+    }
+    return null;
+}
+
 private async hashPassword(password: string, salt: string): Promise<string>
 {
     return bcrypt.hash(password, salt);
