@@ -6,6 +6,7 @@ import { TaskRepository } from './task.repository';
 import { TasksStatus } from './task-status.enum';
 import { Connection } from 'typeorm';
 import { GetTasksFilterDto } from './dto/getTasksFilter.dto';
+import { User } from 'src/auth/user.entity';
 @Injectable()
 export class TasksService {
     private   taskRepository: TaskRepository;
@@ -46,8 +47,9 @@ constructor(
         }
         return found;
       }
-    async createTask(createTaskDto: CreateTaskDto): Promise<Task> {
-        return this.taskRepository.createTask(createTaskDto);
+    async createTask(createTaskDto: CreateTaskDto,
+      user : User): Promise<Task> {
+        return this.taskRepository.createTask(createTaskDto, user);
       }
     // async createTask(createTaskDto: CreateTaskDto): Promise<Task>{
     //    const {title, description} = createTaskDto;
