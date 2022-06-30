@@ -25,12 +25,13 @@ import { Task } from "./task.entity";
       user : User
       ): Promise<Task> {
       const { title, description } = createTaskDto;
-  
+      // console.log(user);
       const task = new Task();
       task.title = title;
       task.description = description;
       task.status = TasksStatus.OPEN;
       task.user = user;
+      // console.log(task)
       await task.save();
       delete task.user;
       return task;

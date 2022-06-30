@@ -18,7 +18,7 @@ export class User extends BaseEntity
     @Column()
     salt : string;
 
-    @OneToMany(type => Task, Task => Task.user , {eager : true})
+    @OneToMany(type => Task, task => task.user, { eager: true })
     tasks: Task[];
 
     async validatePassword(password: string) : Promise<boolean>
