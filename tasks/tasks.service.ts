@@ -61,9 +61,9 @@ constructor(
     //     await task.save();
     //     return task;
     // }
-    async deleteTask(id: number): Promise<boolean> {
+    async deleteTask(id: number, user: User): Promise<boolean> {
         // const task = await this.taskRepository.findOne(id);
-        const res = await this.taskRepository.delete(id);
+        const res = await this.taskRepository.delete({id, userId: user.id});
         return (res.affected === 1);
         
       }
