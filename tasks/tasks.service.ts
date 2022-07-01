@@ -20,8 +20,9 @@ constructor(
 }
     // private tasks : Task[] = [];
     
-    async getTasks(filterDto: GetTasksFilterDto) : Promise<Task[]> {
-        return this.taskRepository.getTasks(filterDto);
+    async getTasks(user : User,
+      filterDto: GetTasksFilterDto) : Promise<Task[]> {
+        return this.taskRepository.getTasks(user,filterDto);
     }
     // getTasksByStatus(filterDto : GetTasksFilterDto) : Task[] {
         
