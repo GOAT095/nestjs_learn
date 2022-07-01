@@ -15,19 +15,48 @@ export class TasksController {
     constructor(private tasksService : TasksService){}
     
     
-    // @Get(':id')
-    // getTaskById(@Param('id', ParseIntPipe) id: number): Promise<Task> {
-    //     return this.tasksService.getTaskById(id);
-    // }
+   
 
     @Get()
     async getAllTasks(
     @Query(ValidationPipe) filterDto : GetTasksFilterDto,@Body() CreateTaskDto : CreateTaskDto, 
-    @GetUser() user: User, @Request() req) : Promise<Task[]>
+    @GetUser() user: User) : Promise<Task[]>
     {
-        return this.tasksService.getTasks(req.user, filterDto);
+        return this.tasksService.getTasks(user, filterDto);
     }
-    // @Get()
+ 
+
+    @Post()
+    @UsePipes(ValidationPipe)
+    createTask(
+        @Body() CreateTaskDto : CreateTaskDto, 
+        @GetUser() user: User) : Promise<Task> {
+        // console.log(req.user)
+        return this.tasksService.createTask(CreateTaskDto, user);
+    }
+    @Delete('/:id')
+    deleteTask(@Param('id') id : number) : Promise<boolean> {
+       return  this.tasksService.deleteTask(id);
+        
+    }
+    // @Patch('/:id/status')
+    // updateTaskStatus (
+    // @Param('id', ParseIntPipe) id : number,
+    // @Body('status', TasksStatusValidatorPipe) status : TasksStatus) : Promise<Task> {
+    //     return this.tasksService.updateTaskStatus(id, status);
+    // }
+    @Get()
+    getTasks(
+        @Param('status', TasksStatusValidatorPipe) status: TasksStatus,
+    ){
+        
+    }  
+    @Get(':id')
+    getTaskById(@Param('id', ParseIntPipe) id: number, 
+     @GetUser() user: User): Promise<Task> {
+        return this.tasksService.getTaskById(id, user);
+    }
+     // @Get()
     // getTasksByStatus(@Query() filterDto : GetTasksFilterDto) : Task[] {
     //     console.log("test");
     //     return this.tasksService.getTasksByStatus(filterDto);
@@ -36,31 +65,5 @@ export class TasksController {
     // getTaskById(@Param('id') id : string) : Task {
     //     return this.tasksService.getTaskById(id);
     // }
-
-    @Post()
-    @UsePipes(ValidationPipe)
-    createTask(
-        @Body() CreateTaskDto : CreateTaskDto, 
-        @GetUser() user: User, @Request() req) : Promise<Task> {
-        // console.log(req.user)
-        return this.tasksService.createTask(CreateTaskDto, req.user);
-    }
-    @Delete('/:id')
-    deleteTask(@Param('id') id : number) : Promise<boolean> {
-       return  this.tasksService.deleteTask(id);
-        
-    }
-    @Patch('/:id/status')
-    updateTaskStatus (
-    @Param('id', ParseIntPipe) id : number,
-    @Body('status', TasksStatusValidatorPipe) status : TasksStatus) : Promise<Task> {
-        return this.tasksService.updateTaskStatus(id, status);
-    }
-    @Get()
-    getTasks(
-        @Param('status', TasksStatusValidatorPipe) status: TasksStatus,
-    ){
-        
-    }
 }
 

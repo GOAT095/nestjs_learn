@@ -40,8 +40,8 @@ constructor(
     //     return tasks;
     // }
 
-    async getTaskById(id: number): Promise<Task> {
-        const found = await this.taskRepository.findOne(id);
+    async getTaskById(id: number, user : User): Promise<Task> {
+        const found = await this.taskRepository.findOne({where: {id, userId: user.id}});
     
         if (!found) {
           throw new NotFoundException(`Task with ID "${id}" not found`);
@@ -91,10 +91,10 @@ constructor(
     //     const found = this.getTaskById(id);
     //     this.tasks = this.tasks.filter(task => task.id !== id);
     // }
-    async updateTaskStatus(id : number, status : TasksStatus) : Promise<Task> {
-      const task = await this.getTaskById(id);
-      task.status = status;
-      await task.save();
-      return task;
-    }
+    // async updateTaskStatus(id : number, status : TasksStatus) : Promise<Task> {
+    //   const task = await this.getTaskById(id);
+    //   task.status = status;
+    //   await task.save();
+    //   return task;
+    // }
 }
