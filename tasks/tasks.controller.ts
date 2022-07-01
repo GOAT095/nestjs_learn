@@ -13,9 +13,6 @@ import { User } from 'src/auth/user.entity';
 @UseGuards(AuthGuard())
 export class TasksController {
     constructor(private tasksService : TasksService){}
-    
-    
-   
 
     @Get()
     async getAllTasks(
@@ -39,12 +36,13 @@ export class TasksController {
        return  this.tasksService.deleteTask(id);
         
     }
-    // @Patch('/:id/status')
-    // updateTaskStatus (
-    // @Param('id', ParseIntPipe) id : number,
-    // @Body('status', TasksStatusValidatorPipe) status : TasksStatus) : Promise<Task> {
-    //     return this.tasksService.updateTaskStatus(id, status);
-    // }
+    @Patch('/:id/status')
+    updateTaskStatus (
+    @Param('id', ParseIntPipe) id : number,
+    @Body('status', TasksStatusValidatorPipe) status : TasksStatus,
+    @GetUser() user: User) : Promise<Task> {
+        return this.tasksService.updateTaskStatus(id, status, user);
+    }
     @Get()
     getTasks(
         @Param('status', TasksStatusValidatorPipe) status: TasksStatus,
