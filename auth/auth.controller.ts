@@ -12,7 +12,6 @@ export class AuthController {
     constructor(
         private readonly authService : AuthService,
 
-        
     ){}
     @Post('/signup')
     async signup(@Body(ValidationPipe)authCredentialsDto: AuthCredentialsDto) : Promise<void>{
